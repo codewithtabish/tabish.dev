@@ -8,6 +8,7 @@ import { useState } from 'react'
 import CardStackExample from './generals/(home)/card-stacks'
 import LogoCloud from './logo-cloud'
 import { AnimatedThemeToggler } from './ui/animated-theme-toggler'
+import { AppleHelloEnglishEffect } from './apple-hello-effect'
 
 const menuItems = [
   { name: 'Features', href: '#' },
@@ -22,7 +23,7 @@ export default function HeroSection() {
   return (
     <>
       {/* Header / Navbar */}
-      <header>
+      <header className='my-5 py-6'>
         <nav
           data-state={menuState && 'active'}
           className="fixed z-20 w-full border-b border-dashed backdrop-blur-md  ">
@@ -83,17 +84,18 @@ export default function HeroSection() {
           <div className="relative mx-auto max-w-6xl px-6 py-28 lg:py-36">
             <div className="lg:flex lg:items-center lg:gap-12">
 
-              <div className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
+              <div className="relative z-10 mb-8 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
                 <Link
                   href="/"
                   className="flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium">
                   <span className="bg-muted rounded px-2 py-1 text-xs">New</span>
-                  <span>Introduction Tailark Html</span>
+                  <span>tabish-</span>
                   <ArrowRight className="size-4" />
                 </Link>
+                <AppleHelloEnglishEffect/>
 
-                <h1 className="mt-10 text-3xl font-bold md:text-4xl ">
-                  Hi, I'm Tabish – Full Stack Developer & Digital Creator
+                <h1 className="mt-10 text-3xl ml-20 font-bold md:text-4xl ">
+                   I'm Tabish – Full Stack Developer & Digital Creator
                 </h1>
                 <p className="mt-6 text-lg text-muted-foreground">
                   I build production-ready web applications and digital products that are scalable, modern, and fully customizable. Passionate about coding, problem-solving, and delivering high-quality user experiences.

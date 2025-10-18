@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/generals/theme/theme-provider";
 import Footer from "@/components/generals/footer/footer";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { SocialBar } from "@/components/generals/social-bar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -36,8 +38,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
+            <TooltipProvider>
+              <SocialBar/>
+
             {children}
             <Footer/>
+            </TooltipProvider>
           </ThemeProvider>
       </body>
     </html>
