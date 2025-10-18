@@ -6,6 +6,7 @@ import { TimelineDemo } from '@/components/generals/(home)/education-section'
 import SkillSection from '@/components/generals/(home)/skill/skill-section'
 import TestmonialSection from '@/components/generals/(home)/testmonial-section'
 import HomeLogoCloudTrustedSection from '@/components/generals/(home)/trusted-clouds'
+import WorkExperienceSection from '@/components/generals/(home)/work-experience/work-experiece'
 import { HoverBackground } from '@/components/generals/hover-background'
 import HeroSection from '@/components/hero-section'
 import ShapeHero from '@/components/kokonutui/shape-hero'
@@ -79,10 +80,11 @@ const HomePage = () => {
       <HeroSection/>
       <AboutSection/>
       <TimelineDemo/>
+      <WorkExperienceSection/>
+      <SkillSection/>
       {/* <Timeline/> */}
       <HomeLogoCloudTrustedSection/>
       <TestmonialSection/>
-      <SkillSection/>
       <div className="md:max-w-6xl mx-auto py-10">
       <DashboardBentoGrid/>
       
