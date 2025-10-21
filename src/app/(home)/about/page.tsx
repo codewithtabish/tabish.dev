@@ -2,8 +2,11 @@
 
 import AboutPageCotnentSection from "@/components/generals/about/about-comp";
 import StatsSection from "@/components/generals/about/about-status-section";
+import { MissionVisionSection } from "@/components/generals/about/mission-vison-stack";
 import { HoverBackground } from "@/components/generals/hover-background";
 import AboutUs1 from "@/components/mvpblocks/about-us-1";
+import TeamSection from "@/components/team";
+import { CardStack } from "@/components/ui/card-stack";
 import { Vortex } from "@/components/ui/vortex";
 
 
@@ -96,9 +99,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </div>
       <AboutPageCotnentSection/>
       <StatsSection/>
-      {/* <Vortex>
-        </Vortex> */}
-      {/* <AboutUs1/> */}
+       
+       {/* <div className="mt-56 dark:block hidden"> */}
+        {/* <Vortex className="h-screen"> */}
+          <div>
+            <MissionVisionSection/>
+        
+          </div>
+          <TeamSection/>
+          {/* </Vortex> */}
                     </HoverBackground>
 
     </main>
