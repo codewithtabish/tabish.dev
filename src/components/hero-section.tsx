@@ -9,6 +9,7 @@ import CardStackExample from './generals/(home)/card-stacks'
 import LogoCloud from './logo-cloud'
 import { AnimatedThemeToggler } from './ui/animated-theme-toggler'
 import { AppleHelloEnglishEffect } from './apple-hello-effect'
+import { Vortex } from './ui/vortex'
 
 const menuItems = [
   { name: 'Features', href: '#' },
@@ -79,12 +80,14 @@ export default function HeroSection() {
       </header>
 
       {/* Hero Section */}
+      {/* <Vortex className=''> */}
+
       <main className=''>
         <section className="overflow-hidden bg-gradient-to-b from-white/70 via-white/50 dark:from-zinc-950/70 dark:via-zinc-950/50">
           <div className="relative mx-auto max-w-6xl px-6 py-28 lg:py-36">
             <div className="lg:flex lg:items-center lg:gap-12">
 
-              <div className="relative z-10 mb-8 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
+              <div className="relative z-10 flex-1   mb-8 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
                 <Link
                   href="/"
                   className="flex w-fit items-center gap-2 rounded-full border px-3 py-1 text-sm font-medium">
@@ -123,13 +126,16 @@ export default function HeroSection() {
 
 
               {/* Card Stack Row */}
-              <div className="mt-16 lg:mt-0 lg:w-1/2 flex justify-center">
+              <div className="mt-16 lg:mt-0  flex-1 flex justify-end mx-auto items-end ">
+              <p></p>
                 <CardStackExample />
               </div>
             </div>
           </div>
         </section>
       </main>
+            {/* </Vortex> */}
+
     </>
   )
 }

@@ -4,6 +4,7 @@ import AboutPageCotnentSection from "@/components/generals/about/about-comp";
 import StatsSection from "@/components/generals/about/about-status-section";
 import { HoverBackground } from "@/components/generals/hover-background";
 import AboutUs1 from "@/components/mvpblocks/about-us-1";
+import { Vortex } from "@/components/ui/vortex";
 
 
 // Dynamic SEO metadata for About page (Next.js 15: params is a Promise)
@@ -95,6 +96,8 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </div>
       <AboutPageCotnentSection/>
       <StatsSection/>
+      {/* <Vortex>
+        </Vortex> */}
       {/* <AboutUs1/> */}
                     </HoverBackground>
 
