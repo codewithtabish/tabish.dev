@@ -6,6 +6,18 @@ import { ThemeProvider } from "@/components/generals/theme/theme-provider";
 import Footer from "@/components/generals/footer/footer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { SocialBar } from "@/components/generals/social-bar";
+import {
+  ClerkProvider,
+  SignInButton,
+  SignUpButton,
+  SignedIn,
+  SignedOut,
+  UserButton,
+} from '@clerk/nextjs'
+import { dark, neobrutalism } from '@clerk/themes'
+import HeaderSection from "@/components/generals/header";
+
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,18 +40,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider
+    //  appearance={{
+    //           // baseTheme: [dark],
+
+    //     // baseTheme: dark,
+    //   }}
+    >
+
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        >
          <ThemeProvider
             attribute="class"
             defaultTheme="system"
             enableSystem
             disableTransitionOnChange
-          >
+            >
             <TooltipProvider>
-              <SocialBar/>
+              {/* <SocialBar/> */}
+              <HeaderSection/>
 
             {children}
             <Footer/>
@@ -47,5 +68,6 @@ export default function RootLayout({
           </ThemeProvider>
       </body>
     </html>
+            </ClerkProvider>
   );
 }
