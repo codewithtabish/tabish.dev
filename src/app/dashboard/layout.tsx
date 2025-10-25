@@ -1,11 +1,11 @@
-import React from 'react'
+import DashboardSidebar from "@/components/generals/dashboard/dashboard-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
-const DashboardLayout = ({children}:{children:React.ReactNode}) => {
+export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      {children}
+    <div className="flex w-screen ">
+      <DashboardSidebar />
+      <main className="flex-1  py-20 px-10 min-h-screen">{children}</main>
     </div>
-  )
+  );
 }
-
-export default DashboardLayout

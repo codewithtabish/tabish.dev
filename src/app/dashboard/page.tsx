@@ -1,11 +1,16 @@
+import { DashboardSectionCards } from '@/components/generals/dashboard/dashboard-card-sections'
+import { DashboardChartAreaSection } from '@/components/generals/dashboard/dashboard-chart-section'
+import { DashboardDataTable } from '@/components/generals/dashboard/dashboard-user-table'
+import { dashboardData } from '@/constants/dashboard-table'
 import React from 'react'
 
 const DashboardPage = () => {
   return (
     <div>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et pariatur, animi molestias placeat quod recusandae nihil, fugiat adipisci eum voluptatibus nesciunt. Laboriosam unde ipsam, veniam reiciendis omnis dignissimos culpa optio?
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et pariatur, animi molestias placeat quod recusandae nihil, fugiat adipisci eum voluptatibus nesciunt. Laboriosam unde ipsam, veniam reiciendis omnis dignissimos culpa optio?
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Et pariatur, animi molestias placeat quod recusandae nihil, fugiat adipisci eum voluptatibus nesciunt. Laboriosam unde ipsam, veniam reiciendis omnis dignissimos culpa optio?
+      <DashboardSectionCards/>
+      <DashboardChartAreaSection/>
+      <DashboardDataTable data={dashboardData}/>
+        
       
     </div>
   )
