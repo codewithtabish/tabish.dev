@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import { Button } from '../ui/button'
 import Link from 'next/link'
 import { AnimatedThemeToggler } from '../ui/animated-theme-toggler'
@@ -17,6 +17,7 @@ import {
 import { useTheme } from 'next-themes'
 import { dark } from '@clerk/themes'
 import ProfileDropdown from './profile-dropdown'
+import { AvatarFallbackSection } from '../fallbacks/avatar-fallback'
 
 const HeaderSection = () => {
   const [menuState, setMenuState] = useState(false)
@@ -88,7 +89,10 @@ const HeaderSection = () => {
               </SignedOut>
 
               <SignedIn>
+                <Suspense fallback={<AvatarFallbackSection/>}>
                             <ProfileDropdown />
+
+                </Suspense>
                     </SignedIn>
 
               

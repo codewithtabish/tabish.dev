@@ -1,15 +1,201 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// ============================
+// PRISMA SCHEMA (Fixed + Optimized)
+// ============================
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// Learn more: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+// ============================
+// USER MODEL (with Clerk auth)
+// ============================
+
+model User {
+  id               String               @id @default(cuid())
+  clerkId          String               @unique
+  email            String               @unique
+  name             String?
+  role             Role                 @default(USER)
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+
+  blogs            Blog[]
+  projects         Project[]
+  openSources      OpenSourceProject[]
+  waitlistProjects WaitlistProject[]
+  notifications    Notification[]
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+// ============================
+// BLOG MODEL (with SEO relation)
+// ============================
+
+model Blog {
+  id                String     @id @default(cuid())
+  title             String
+  slug              String     @unique
+  shortDescerption  String
+  content           Json
+  imageUrl          String?
+  category          String?
+  tags              String[]
+  published         Boolean    @default(false)
+  publishedAt       DateTime?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+
+  authorId          String
+  author            User       @relation(fields: [authorId], references: [id])
+
+  seo               BlogSEO?   @relation(fields: [seoId], references: [id])
+  seoId             String?    @unique
+}
+
+// ============================
+// PROFESSIONAL BLOG SEO MODEL
+// ============================
+
+model BlogSEO {
+  id                  String     @id @default(cuid())
+  metaTitle           String?
+  metaDescription     String?
+  metaKeywords        String?
+  canonicalUrl        String?
+  ogTitle             String?
+  ogDescription       String?
+  ogImageUrl          String?
+  twitterTitle        String?
+  twitterDescription  String?
+  twitterImage        String?
+  schemaMarkup        String?    // JSON-LD structured data
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+
+  blog                Blog?
+}
+
+// ============================
+// PROJECT MODEL
+// ============================
+
+model Project {
+  id                String           @id @default(cuid())
+  title             String
+  shortDescerption  String
+  content           Json
+  imageUrl          String?
+  category          ProjectCategory
+  demoUrl           String?
+  githubUrl         String?
+  likes             Int              @default(0)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+
+  createdById       String
+  createdBy         User             @relation(fields: [createdById], references: [id])
+}
+
+enum ProjectCategory {
+  AI
+  MOBILE_APP
+  WEB_APP
+  BACKEND_APP
+  MACHINE_LEARNING
+  OTHER
+}
+
+// ============================
+// OPEN SOURCE PROJECT MODEL
+// ============================
+
+model OpenSourceProject {
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  repoUrl      String
+  stars        Int      @default(0)
+  forks        Int      @default(0)
+  category     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  createdById  String
+  createdBy    User     @relation(fields: [createdById], references: [id])
+}
+
+// ============================
+// WAITLIST MODEL
+// ============================
+
+model Waitlist {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String?
+  createdAt   DateTime @default(now())
+  source      String?
+
+  projectId   String?
+  project     WaitlistProject? @relation(fields: [projectId], references: [id])
+}
+
+// ============================
+// WAITLIST PROJECT MODEL
+// ============================
+
+model WaitlistProject {
+  id              String     @id @default(cuid())
+  title           String
+  category        String?
+  description     String
+  imageUrl        String?
+  likes           Int        @default(0)
+  waitingUsers    Int        @default(0)
+  expectedRelease DateTime?
+  status          String     @default("waiting") // waiting | active | completed
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  createdById     String?
+  createdBy       User?      @relation(fields: [createdById], references: [id])
+  waitlists       Waitlist[]
+}
+
+// ============================
+// NOTIFICATION MODEL
+// ============================
+
+model Notification {
+  id                 String     @id @default(cuid())
+  title              String
+  message            String
+  type               NotificationType
+  isRead             Boolean    @default(false)
+  createdAt          DateTime   @default(now())
+
+  projectId          String?
+  blogId             String?
+  waitlistProjectId  String?
+
+  userId             String
+  user               User       @relation(fields: [userId], references: [id])
+}
+
+enum NotificationType {
+  PROJECT_UPDATE
+  BLOG_PUBLISHED
+  WAITLIST_STATUS
+  GENERAL
 }

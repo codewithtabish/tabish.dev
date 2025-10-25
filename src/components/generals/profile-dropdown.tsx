@@ -60,7 +60,7 @@ export default function ProfileDropdown({
     },
     {
       label: "Dashboard",
-      href: "/en/dashboard",
+      href: "/dashboard",
       icon: <Settings className="w-4 h-4" />,
     },
     {

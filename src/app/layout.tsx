@@ -16,6 +16,9 @@ import {
 } from '@clerk/nextjs'
 import { dark, neobrutalism } from '@clerk/themes'
 import HeaderSection from "@/components/generals/header";
+import HeaderWrapper from "@/components/generals/header-wrapper";
+import { Suspense } from "react";
+import { AvatarFallbackSection } from "../components/fallbacks/avatar-fallback";
 
 
 
@@ -59,8 +62,13 @@ export default function RootLayout({
             disableTransitionOnChange
             >
             <TooltipProvider>
+              {/* <Suspense fallback={<AvatarFallbackSection/>}> */}
+              <HeaderWrapper/>
+
+              {/* </Suspense> */}
+
               {/* <SocialBar/> */}
-              <HeaderSection/>
+              {/* <HeaderSection/> */}
 
             {children}
             <Footer/>
