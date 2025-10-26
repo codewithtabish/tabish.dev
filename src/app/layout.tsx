@@ -19,6 +19,8 @@ import HeaderSection from "@/components/generals/header";
 import HeaderWrapper from "@/components/generals/header-wrapper";
 import { Suspense } from "react";
 import { AvatarFallbackSection } from "../components/fallbacks/avatar-fallback";
+import { Toaster } from "@/components/ui/sonner"
+
 
 
 
@@ -71,6 +73,7 @@ export default function RootLayout({
               {/* <HeaderSection/> */}
 
             {children}
+            <Toaster/>
             <Footer/>
             </TooltipProvider>
           </ThemeProvider>
