@@ -14,6 +14,8 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { X, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+
 
 interface BlogInputFieldsProps {
   blogData: {
@@ -34,35 +36,43 @@ const BlogInputFields = ({ blogData, onChange }: BlogInputFieldsProps) => {
   const ogFileRef = useRef<HTMLInputElement>(null);
 
   // ✅ Upload image via API (only show preview once upload succeeds)
-  const uploadImage = async (file: File, type: "imageUrl" | "ogImageUrl") => {
-    const formData = new FormData();
-    formData.append("file", file);
 
-    try {
-      if (type === "imageUrl") setLoadingMain(true);
-      else setLoadingOg(true);
+// ✅ Upload image via API (preview only after successful upload)
+const uploadImage = async (file: File, type: "imageUrl" | "ogImageUrl") => {
+  const formData = new FormData();
+  formData.append("file", file);
 
-      const res = await fetch("/api/upload-file", {
-        method: "POST",
-        body: formData,
-      });
+  try {
+    // Set appropriate loading state
+    if (type === "imageUrl") setLoadingMain(true);
+    else setLoadingOg(true);
 
-      const data = await res.json();
+    // Choose API endpoint based on type
+    const endpoint = type === "imageUrl" ? "/api/upload-file" : "/api/upload-og";
 
-      if (data?.file?.url) {
-        // ✅ Only set preview after receiving actual URL
-        onChange(type, data.file.url);
-      } else {
-        alert("Upload failed. Please try again.");
-      }
-    } catch (error) {
-      console.error("Upload error:", error);
-      alert("Something went wrong during upload.");
-    } finally {
-      setLoadingMain(false);
-      setLoadingOg(false);
+    const res = await fetch(endpoint, {
+      method: "POST",
+      body: formData,
+    });
+
+    const data = await res.json();
+
+    if (data?.file?.url) {
+      // ✅ Set preview after receiving actual URL
+      onChange(type, data.file.url);
+      toast.success("Upload successful!");
+    } else {
+      toast.error("Upload failed. Please try again.");
+      console.error("Upload failed response:", data);
     }
-  };
+  } catch (error) {
+    console.error("Upload error:", error);
+    toast.error("Something went wrong during upload.");
+  } finally {
+    setLoadingMain(false);
+    setLoadingOg(false);
+  }
+};
 
   // File input change
   const handleImageChange = async (

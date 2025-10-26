@@ -35,8 +35,20 @@ export async function POST(req: Request) {
     const url = await uploadFileToS3(processed, uniqueName, "image/webp");
 
     return NextResponse.json({ success: 1, file: { url } });
+
   } catch (err: any) {
+    // Log the full error
     console.error("Banner upload error:", err);
-    return NextResponse.json({ success: 0, error: err.message || "Upload failed" }, { status: 500 });
+
+    // Return exact error details in the response
+    return NextResponse.json(
+      {
+        success: 0,
+        error: err.message || "Upload failed",
+        stack: err.stack || null, // optional: include stack trace for debugging
+        name: err.name || "Error",
+      },
+      { status: 500 }
+    );
   }
 }
