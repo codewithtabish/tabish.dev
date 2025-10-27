@@ -4,10 +4,9 @@ export async function getAllBlogsServerAction(): Promise<GetAllBlogsResponse> {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`, {
       method: "GET",
-    //   cache:'force-cache',
-    //   next: { tags: ['all-blogs'] }, // ✅ tag caching for individual blog
+      cache:'force-cache',
+      next: { tags: ['all-blogs'] }, // ✅ tag caching for individual blog
 
-      // next: { revalidate: 10 }, // Optional caching
     });
 
     if (!res.ok) {

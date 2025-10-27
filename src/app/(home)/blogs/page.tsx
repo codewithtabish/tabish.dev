@@ -1,4 +1,5 @@
 import BlogsSkeleton from '@/components/fallbacks/blog-list-fallback';
+import BackBreadcrumb from '@/components/generals/back-breadcrumb';
 import BlogsListComp from '@/components/generals/blogs/blog-list-comp';
 import React, { Suspense } from 'react';
 
@@ -6,7 +7,9 @@ export default async function BlogsPage() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
+              <BackBreadcrumb/>
       <div className='flex justify-center items-center flex-col gap-5'>
+
 
       {/* Page Title */}
       <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-gray-100 mb-4">

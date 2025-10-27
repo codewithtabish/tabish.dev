@@ -3,6 +3,7 @@
 import AboutPageCotnentSection from "@/components/generals/about/about-comp";
 import StatsSection from "@/components/generals/about/about-status-section";
 import { MissionVisionSection } from "@/components/generals/about/mission-vison-stack";
+import BackBreadcrumb from "@/components/generals/back-breadcrumb";
 import { HoverBackground } from "@/components/generals/hover-background";
 import AboutUs1 from "@/components/mvpblocks/about-us-1";
 import TeamSection from "@/components/team";
@@ -77,26 +78,15 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       {/* <BackButtonComp locale={locale}/> */}
       <div
         className="
-          w-full
-          max-w-[100vw]
-          sm:max-w-screen-sm
-          md:max-w-screen-md
-          lg:max-w-screen-lg
-          xl:max-w-screen-xl
-          2xl:max-w-screen-2xl
-          mx-auto
-          px-2
-          sm:px-4
-          md:px-8
-          py-6
-          sm:py-8
-          md:py-12
-          lg:py-16
-          xl:py-20
-          flex flex-col
+         py-10
         "
       >
       </div>
+      <div className="px-10">
+            <BackBreadcrumb/>
+
+      </div>
+
       <AboutPageCotnentSection/>
       <StatsSection/>
        

@@ -1,8 +1,10 @@
+import FeaturedBlogSkeleton from '@/components/fallbacks/featured-blogs-fallback'
 import AboutSection from '@/components/generals/(home)/about-section'
 import CtaWrapperSection from '@/components/generals/(home)/cta-wrapper'
 import DashboardBentoGrid from '@/components/generals/(home)/dashboard-bentogrid'
 // import CtaParentSection from '@/components/generals/(home)/cta-section'
 import { TimelineDemo } from '@/components/generals/(home)/education-section'
+import FeaturedBlogs from '@/components/generals/(home)/featured-blogs'
 import SkillSection from '@/components/generals/(home)/skill/skill-section'
 import TestmonialSection from '@/components/generals/(home)/testmonial-section'
 import HomeLogoCloudTrustedSection from '@/components/generals/(home)/trusted-clouds'
@@ -13,7 +15,7 @@ import ShapeHero from '@/components/kokonutui/shape-hero'
 // import { Timeline } from '@/components/ui/timeline'
 import dynamic from 'next/dynamic'
 // import { EducationTimeline } from '@/components/ui/timeline'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 
 const HomePage = () => {
@@ -21,7 +23,7 @@ const HomePage = () => {
 
 
     <div className=''>
-         <HoverBackground
+         {/* <HoverBackground
         colors={{
           background: '',
           objects: [
@@ -75,7 +77,7 @@ const HomePage = () => {
           glow: 'shadow-emerald-400/70',
         }}
         objectCount={12}
-      >
+      > */}
 
       <HeroSection/>
       <AboutSection/>
@@ -85,10 +87,20 @@ const HomePage = () => {
       {/* <Timeline/> */}
       <HomeLogoCloudTrustedSection/>
       <TestmonialSection/>
-      <div className="md:max-w-6xl mx-auto py-10">
-      <DashboardBentoGrid/>
-      
-      </div>
+ <div className="md:max-w-6xl mx-auto py-10 px-4">
+  <div className="text-center mb-8">
+    <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-300">Our Blogs</h2>
+    <p className="text-gray-600 mt-2 text-sm md:text-base">
+      Explore the latest articles, insights, and updates from our team.
+    </p>
+  </div>
+  <Suspense fallback={<FeaturedBlogSkeleton/>}>
+  <FeaturedBlogs />
+
+  </Suspense>
+
+</div>
+
       <ShapeHero/>
 
           <div className='min-w-screen'>
@@ -101,7 +113,7 @@ const HomePage = () => {
       
       {/* <ThemeChanger/> */}
 
-      </HoverBackground>
+      {/* </HoverBackground> */}
      
     </div>
   )

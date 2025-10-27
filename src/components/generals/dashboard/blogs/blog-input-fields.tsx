@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,9 +13,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { X, Loader2 } from "lucide-react";
-import { toast } from "sonner";
-
+import { X } from "lucide-react";
 
 interface BlogInputFieldsProps {
   blogData: {
@@ -29,67 +27,8 @@ interface BlogInputFieldsProps {
 }
 
 const BlogInputFields = ({ blogData, onChange }: BlogInputFieldsProps) => {
-  const [loadingMain, setLoadingMain] = useState(false);
-  const [loadingOg, setLoadingOg] = useState(false);
-
-  const mainFileRef = useRef<HTMLInputElement>(null);
-  const ogFileRef = useRef<HTMLInputElement>(null);
-
-  // ✅ Upload image via API (only show preview once upload succeeds)
-
-// ✅ Upload image via API (preview only after successful upload)
-const uploadImage = async (file: File, type: "imageUrl" | "ogImageUrl") => {
-  const formData = new FormData();
-  formData.append("file", file);
-
-  try {
-    // Set appropriate loading state
-    if (type === "imageUrl") setLoadingMain(true);
-    else setLoadingOg(true);
-
-    // Choose API endpoint based on type
-    const endpoint = type === "imageUrl" ? "/api/upload-file" : "/api/upload-og";
-
-    const res = await fetch(endpoint, {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    if (data?.file?.url) {
-      // ✅ Set preview after receiving actual URL
-      onChange(type, data.file.url);
-      toast.success("Upload successful!");
-    } else {
-      toast.error("Upload failed. Please try again.");
-      console.error("Upload failed response:", data);
-    }
-  } catch (error) {
-    console.error("Upload error:", error);
-    toast.error("Something went wrong during upload.");
-  } finally {
-    setLoadingMain(false);
-    setLoadingOg(false);
-  }
-};
-
-  // File input change
-  const handleImageChange = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    type: "imageUrl" | "ogImageUrl"
-  ) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    await uploadImage(file, type);
-  };
-
   const handleRemoveImage = (type: "imageUrl" | "ogImageUrl") => {
     onChange(type, "");
-    if (type === "imageUrl" && mainFileRef.current)
-      mainFileRef.current.value = "";
-    if (type === "ogImageUrl" && ogFileRef.current)
-      ogFileRef.current.value = "";
   };
 
   return (
@@ -133,23 +72,16 @@ const uploadImage = async (file: File, type: "imageUrl" | "ogImageUrl") => {
         </Select>
       </div>
 
-      {/* Featured Image Upload */}
+      {/* Featured Image URL */}
       <div>
-        <Label className="mb-2 block text-gray-800">Featured Image</Label>
+        <Label className="mb-2 block text-gray-800">Featured Image URL</Label>
         <Input
-          ref={mainFileRef}
-          type="file"
-          accept="image/*"
-          onChange={(e) => handleImageChange(e, "imageUrl")}
-          disabled={loadingMain}
+          placeholder="Paste the image URL..."
+          value={blogData.imageUrl}
+          onChange={(e) => onChange("imageUrl", e.target.value)}
         />
-        {loadingMain && (
-          <p className="text-sm text-gray-500 mt-1 flex items-center gap-2">
-            <Loader2 className="animate-spin h-4 w-4" /> Uploading image...
-          </p>
-        )}
 
-        {/* ✅ Only show preview after API returns a valid URL */}
+        {/* Preview */}
         {blogData.imageUrl && (
           <div className="mt-3 relative w-full max-w-sm h-64 rounded-xl overflow-hidden shadow-md border border-gray-200">
             <Image
@@ -170,22 +102,16 @@ const uploadImage = async (file: File, type: "imageUrl" | "ogImageUrl") => {
         )}
       </div>
 
-      {/* OG Image Upload */}
+      {/* OG Image URL */}
       <div>
-        <Label className="mb-2 block text-gray-800">OG Image (for SEO)</Label>
+        <Label className="mb-2 block text-gray-800">OG Image URL (for SEO)</Label>
         <Input
-          ref={ogFileRef}
-          type="file"
-          accept="image/*"
-          onChange={(e) => handleImageChange(e, "ogImageUrl")}
-          disabled={loadingOg}
+          placeholder="Paste the OG image URL..."
+          value={blogData.ogImageUrl}
+          onChange={(e) => onChange("ogImageUrl", e.target.value)}
         />
-        {loadingOg && (
-          <p className="text-sm text-gray-500 mt-1 flex items-center gap-2">
-            <Loader2 className="animate-spin h-4 w-4" /> Uploading OG image...
-          </p>
-        )}
 
+        {/* Preview */}
         {blogData.ogImageUrl && (
           <div className="mt-3 relative w-full max-w-sm h-64 rounded-xl overflow-hidden shadow-md border border-gray-200">
             <Image

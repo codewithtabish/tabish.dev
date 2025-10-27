@@ -23,10 +23,10 @@ interface Product {
 
 // Dummy images
 const products: Product[] = [
-  { id: "instant-pay", image: "/hero/hero-two.jpeg" },
-  { id: "instant-pay", image: "/hero/hero-two.jpeg" },
-  { id: "instant-pay", image: "/hero/hero-two.jpeg" },
-  { id: "instant-pay", image: "/hero/hero-two.jpeg" },
+  { id: "instant-pay1", image: "/hero/hero-two.jpeg" },
+  { id: "instant-pay2", image: "/hero/hero-two.jpeg" },
+  { id: "instant-pay3", image: "/hero/hero-two.jpeg" },
+  { id: "instant-pay4", image: "/hero/hero-two.jpeg" },
 //   { id: "crypto-pay", image: "/images/three.png" },
 //   { id: "business-pay", image: "/images/developer.jpg" },
 //   { id: "business-pay2", image: "/images/four.png" },

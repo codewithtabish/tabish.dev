@@ -3,6 +3,7 @@ import React from "react";
 import Image from "next/image";
 import { ContentPreviewer } from "@/components/generals/dashboard/blogs/content-previewer";
 import { getSingleBlogBySlugServerAction } from "@/actions/blog";
+import BackBreadcrumb from "@/components/generals/back-breadcrumb";
 
 export default async function BlogPage({
   params,
@@ -32,6 +33,7 @@ export default async function BlogPage({
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-10">
+      <BackBreadcrumb/>
                          {/* <BackButton /> */}
 
              <div className="flex-1 min-w-0">

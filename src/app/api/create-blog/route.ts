@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma-client";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { generateSlug } from "@/utils/slugify";
+import { revalidateTag } from "next/cache";
 
 export async function POST(req: Request) {
   try {
@@ -98,6 +99,9 @@ export async function POST(req: Request) {
       },
       include: { seo: true, author: true },
     });
+
+        revalidateTag("all-blogs"); // refreshes the blog list cache
+
 
     return NextResponse.json(
       { success: true, message: "Blog created successfully!", blog },
